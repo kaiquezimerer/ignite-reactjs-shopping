@@ -52,7 +52,7 @@ const Home = (): JSX.Element => {
             alt={product.title}
           />
             <strong>{product.title}</strong>
-            <span>{product.price}</span>
+            <span>{formatPrice(product.price)}</span>
             <button
               type="button"
               data-testid="add-product-button"
