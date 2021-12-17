@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import { api } from '../services/api';
-import { Product, Stock } from '../types';
+import { Product } from '../types';
 
 interface CartProviderProps {
   children: ReactNode;
@@ -25,9 +25,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
   const [cart, setCart] = useState<Product[]>(() => {
     const storagedCart = localStorage.getItem('@RocketShoes:cart');
 
-    if (storagedCart) {
-      return JSON.parse(storagedCart);
-    }
+    if (storagedCart) return JSON.parse(storagedCart);
 
     return [];
   });
@@ -56,7 +54,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       if (productFound) {
         productFound.amount = amount;
       } else {
-        // Adiciona um produto novo no carrinhoß
+        // Adiciona o produto novo no carrinho
         const product = await api.get(`/products/${productId}`);
         const newProduct = {
           ...product.data,
@@ -76,7 +74,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   const removeProduct = (productId: number) => {
     try {
-      // Retonra uma nova lista (cart) sem o produto com o id passado no parâmetro
+      // Retonra um novo carrinho sem o produto com o id passado por parâmetro
       const newCart = cart.filter(product => product.id !== productId);
 
       // Atualiza state e localStorage (cart)
@@ -94,15 +92,15 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     try {
       if (amount <= 0) return;
 
-      // Retorna os dados produto que está no estoque (stock)
       const { data: stock } = await api.get(`/stock/${productId}`);
 
+      // Se a quantidade do produto atual for maior que a do estoque, exibe alerta de erro
       if (amount > stock.amount) {
         toast.error('Quantidade solicitada fora de estoque');
         return;
       }
 
-      // Atualiza quantidade (amount) do produto
+      // Atualiza quantidade (amount) do produto (id)
       const newCart = cart.map(product => {
         if (product.id === productId) return {
           ...product,

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { MdAddShoppingCart } from 'react-icons/md';
 
-import { ProductList } from './styles';
+import { useCart } from '../../hooks/useCart';
+
 import { api } from '../../services/api';
 import { formatPrice } from '../../util/format';
-import { useCart } from '../../hooks/useCart';
+
+import { ProductList } from './styles';
 
 interface Product {
   id: number;
@@ -37,7 +39,6 @@ const Home = (): JSX.Element => {
       const { data } = await api.get('/products');
       setProducts(data);
     }
-
     loadProducts();
   }, []);
 

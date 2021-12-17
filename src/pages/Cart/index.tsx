@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   MdDelete,
   MdAddCircleOutline,
@@ -6,7 +5,9 @@ import {
 } from 'react-icons/md';
 
 import { useCart } from '../../hooks/useCart';
+
 import { formatPrice } from '../../util/format';
+
 import { Container, ProductTable, Total } from './styles';
 
 interface Product {
@@ -120,7 +121,6 @@ const Cart = (): JSX.Element => {
           }
         </tbody>
       </ProductTable>
-
       <footer>
         <button type="button">Finalizar pedido</button>
         <Total>
