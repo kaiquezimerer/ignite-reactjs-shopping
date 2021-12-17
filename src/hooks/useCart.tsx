@@ -74,12 +74,19 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   const removeProduct = (productId: number) => {
     try {
-      // Retonra um novo carrinho sem o produto com o id passado por parâmetro
-      const newCart = cart.filter(product => product.id !== productId);
+      // Verifica se o produto existe no carrinho, se sim retorna o index dele
+      const productFindIndex = cart.findIndex(product => product.id === productId);
 
-      // Atualiza state e localStorage (cart)
-      setCart(newCart);
-      localStorage.setItem('@RocketShoes:cart', JSON.stringify(newCart));      
+      if (productFindIndex >= 0) {
+        // Retorna um novo carrinho sem o produto com o id passado por parâmetro
+        const newCart = cart.filter(product => product.id !== productId);
+
+        // Atualiza state e localStorage (cart)
+        setCart(newCart);
+        localStorage.setItem('@RocketShoes:cart', JSON.stringify(newCart));   
+      } else {
+        throw Error();
+      }
     } catch {
       toast.error('Erro na remoção do produto');
     }
