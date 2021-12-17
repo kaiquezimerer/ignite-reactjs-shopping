@@ -57,7 +57,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
         productFound.amount = amount;
       } else {
         // Adiciona um produto novo no carrinhoß
-        const product = await api.get(`/product/${productId}`);
+        const product = await api.get(`/products/${productId}`);
         const newProduct = {
           ...product.data,
           amount: 1
