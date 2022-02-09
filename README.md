@@ -20,7 +20,7 @@ Além de um editor de código como o [VSCode](https://code.visualstudio.com/).
     $ yarn install
     
     # Inicialize o servidor da aplicação
-    yarn server
+    $ yarn server
     
     # Em outro terminal/cmd, inicialize o projeto em modo de desenvolvimento
     $ yarn start
